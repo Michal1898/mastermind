@@ -1,3 +1,4 @@
+const MAX_ATTEMPTS = 10;
 
 let your_code=[0, 0, 0, 0, 0] ;
 let secret_code=[1, 2, 3, 4, 5] ;
@@ -14,19 +15,18 @@ attempt = {
 
 game_structure = {
     secret_code: [0, 0, 0, 0, 0],
-    try: [attempt, attempt, attempt, attempt, attempt, attempt, attempt, attempt, attempt, attempt],
+    code_check: [attempt, attempt, attempt, attempt, attempt, attempt, attempt, attempt, attempt, attempt],
     current_attempt: 0,
     score : 0,
     };
     
-function clear_attempt_slot(i) {
+function clear_attempt_slot(j) {
     var attempt_temp = attempt ;
-    attempt_temp.no = i ;
+    attempt_temp.no = j ;
     attempt_temp.code = [0, 0, 0, 0, 0] ;
-    attempt_temp.black_stick = 0 ;
+    attempt_temp.black_stick = j+1 ;
     attempt_temp.white_stick =0 ;  
-    game_structure.try[2]=attempt_temp;  
-    game_structure.try[7]=attempt_temp;  
+    game_structure.code_check[j]=attempt_temp;  
 }
 
 function attempt_number_print() {
@@ -41,14 +41,13 @@ function game_print() {
     game_zone+=game_structure.secret_code ;
     game_zone+=" <br> ";
 
-    var i;
-    for (i = 0; i < 10; i++) {
+    for (var i = 0; i < MAX_ATTEMPTS; i++) {
         game_zone+=i;
-        game_zone+=JSON.stringify(game_structure.try[i]);
+        game_zone+=JSON.stringify(game_structure.code_check[i]);
         game_zone+=": <br> ";
         }
 
-    document.getElementById("game_zone").innerHTML = JSON.stringify(game_zone);
+    document.getElementById("game_zone").innerHTML = game_zone;
     }
 
 
@@ -110,8 +109,8 @@ function code_compare() {
     active_attempt+=attempt_temp.white_stick;
     //document.getElementById("active_att").innerHTML = active_attempt;
     
-    game_structure.try[i]=attempt_temp;
-    document.getElementById("active_att").innerHTML = JSON.stringify(game_structure.try[i]);
+    game_structure.code_check[i]=attempt_temp;
+    document.getElementById("active_att").innerHTML = JSON.stringify(game_structure.code_check[i]);
     game_structure.current_attempt+=1;
     game_print();
     attempt_number_print(); 
@@ -130,8 +129,7 @@ function code_setter_init() {
 }
 
 function secret_code_set() {
-    var i;
-    for (i = 0; i < secret_code.length; i++) {
+    for (var i = 0; i < secret_code.length; i++) {
         game_structure.secret_code[i]=random_digit_generator();
         }
 }
@@ -144,10 +142,20 @@ function game_zone_init() {
     code_setter_init();
     your_code=[0, 0, 0, 0, 0] ;
     your_code_print();
-    var i;
-    for (i = 0; i < 10; i++) {
-        clear_attempt_slot(i);
-    }
+
+    //for (var i = 0; i < MAX_ATTEMPTS; i++) {
+    //    clear_attempt_slot(i);
+    //}
+clear_attempt_slot(0);
+clear_attempt_slot(1);
+clear_attempt_slot(2);
+clear_attempt_slot(3);
+clear_attempt_slot(4);
+clear_attempt_slot(5);
+clear_attempt_slot(6);
+clear_attempt_slot(7);
+clear_attempt_slot(8);
+clear_attempt_slot(9);
 
 
     game_print(); 
