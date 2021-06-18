@@ -38,6 +38,7 @@ function game_print() {
     var i;
     for (i = 0; i < 10; i++) {
         game_zone+=i;
+        clear_attempt_slot(i)
         game_zone+=JSON.stringify(game_structure.try[i]);
         game_zone+=": <br> ";
         }
@@ -107,7 +108,7 @@ function code_compare() {
 
 function clear_attempt_slot(i) {
     var attempt_tmp = attempt;
-    attempt_tmp.no = 5 ;
+    attempt_tmp.no = i+1 ;
     attempt_tmp.code = [7, 7, 7, 7, 5];
     attempt_tmp.black_stick = i;
     attempt_tmp.white_stick =i+1;    
@@ -127,7 +128,7 @@ function game_zone_init() {
     your_code_print();
     var i;
     for (i = 0; i < 5; i++) {
-        clear_attempt_slot(i);
+        clear_attempt_slot(7);
     }
     game_print()
 }
