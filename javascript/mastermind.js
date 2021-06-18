@@ -20,11 +20,13 @@ game_structure = {
     };
     
 function clear_attempt_slot(i) {
-    var attempt_tmp = attempt ;
-    attempt_tmp.no = i+1 ;
-    attempt_tmp.code = [0, 0, 0, 0, 0] ;
-    attempt_tmp.black_stick = 0 ;
-    attempt_tmp.white_stick =0 ;    
+    var attempt_temp = attempt ;
+    attempt_temp.no = i ;
+    attempt_temp.code = [0, 0, 0, 0, 0] ;
+    attempt_temp.black_stick = 0 ;
+    attempt_temp.white_stick =0 ;  
+    game_structure.try[2]=attempt_temp;  
+    game_structure.try[7]=attempt_temp;  
 }
 
 function attempt_number_print() {
@@ -41,7 +43,7 @@ function game_print() {
 
     var i;
     for (i = 0; i < 10; i++) {
-        clear_attempt_slot(i);
+        game_zone+=i;
         game_zone+=JSON.stringify(game_structure.try[i]);
         game_zone+=": <br> ";
         }
@@ -97,15 +99,28 @@ function myFunction4() {
 
 function code_compare() {
     var i=game_structure.current_attempt;
-    game_structure.try[i].no=i;
-    game_structure.try[i].code = "77777";
-	game_structure.try[i].black_stick=random_digit_generator()      ;
-    game_structure.try[i].white_stick=random_digit_generator()     ;
-
-
+    attempt_temp=attempt;
+    attempt_temp.no=i;
+    attempt_temp.code=your_code;
+    attempt_temp.black_stick=i+2;
+    attempt_temp.white_stick=i-3;
+    
+    active_attempt="Pokus: ";
+    active_attempt+=attempt_temp.no;
+    active_attempt+=" Your Code: ";
+    active_attempt+=attempt_temp.code;
+    active_attempt+=" Black: ";
+    active_attempt+=attempt_temp.black_stick;
+    active_attempt+=" White: ";
+    active_attempt+=attempt_temp.white_stick;
+    //document.getElementById("active_att").innerHTML = active_attempt;
+    
+    game_structure.try[i]=attempt_temp;
+    document.getElementById("active_att").innerHTML = JSON.stringify(game_structure.try[i]);
     game_structure.current_attempt+=1;
     game_print();
-    your_code_print();
+    //your_code_print();
+
 }
 
 
@@ -132,7 +147,7 @@ function game_zone_init() {
     your_code_print();
     var i;
     for (i = 0; i < 10; i++) {
-        clear_attempt_slot(10);
+        clear_attempt_slot(i);
     }
     game_print(); 
 }
