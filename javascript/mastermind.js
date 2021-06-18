@@ -31,7 +31,7 @@ function clear_attempt_slot(i) {
 
 function attempt_number_print() {
    var attempt_no="Pokus ";
-   attempt_no+=game_structure.current_attempt + 1 ;
+   attempt_no+=game_structure.current_attempt;
    attempt_no+=" : <br>";
     document.getElementById("pokus_c").innerHTML = attempt_no; 
 }
@@ -68,38 +68,33 @@ function your_code_print() {
     
 function myFunction0() {
 	var x = document.getElementById("digit0").value;
-	your_code[0]=x   
-	your_code_print()
-	return x
+	your_code[0]=x   ;
+	your_code_print();
 }
 function myFunction1() {
 	var x = document.getElementById("digit1").value;
-	your_code[1]=x   
-	your_code_print()
-	return x
+	your_code[1]=x   ;
+	your_code_print();
 }
 function myFunction2() {
 	var x = document.getElementById("digit2").value;
-	your_code[2]=x   
-	your_code_print()
-	return x
+	your_code[2]=x  ; 
+	your_code_print();
 }
 function myFunction3() {
 	var x = document.getElementById("digit3").value;
-	your_code[3]=x   
-	your_code_print()
-	return x
+	your_code[3]=x   ;
+	your_code_print();
 }
 function myFunction4() {
 	var x = document.getElementById("digit4").value;
-	your_code[4]=x    
-	your_code_print()
-	return x
+	your_code[4]=x    ;
+	your_code_print();
 }
 
 function code_compare() {
     var i=game_structure.current_attempt;
-    attempt_temp=attempt;
+    var attempt_temp=attempt;
     attempt_temp.no=i;
     attempt_temp.code=your_code;
     attempt_temp.black_stick=i+2;
@@ -119,6 +114,7 @@ function code_compare() {
     document.getElementById("active_att").innerHTML = JSON.stringify(game_structure.try[i]);
     game_structure.current_attempt+=1;
     game_print();
+    attempt_number_print(); 
     //your_code_print();
 
 }
@@ -141,6 +137,9 @@ function secret_code_set() {
 }
         
 function game_zone_init() {
+    game_structure.current_attempt=0;
+
+    game_structure.score = 0;
     secret_code_set();
     code_setter_init();
     your_code=[0, 0, 0, 0, 0] ;
@@ -149,7 +148,11 @@ function game_zone_init() {
     for (i = 0; i < 10; i++) {
         clear_attempt_slot(i);
     }
+
+
     game_print(); 
+    attempt_number_print();    
+
 }
     
 function play_again() {
@@ -158,9 +161,6 @@ function play_again() {
 
 
 
-/*game_print();
-attempt_number_print(); 
-*/
 
 
 
