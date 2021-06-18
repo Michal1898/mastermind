@@ -1,6 +1,6 @@
 attempt = {
     no: 0,
-    string: [0, 0, 0, 0, 0], 
+    code: [0, 0, 0, 0, 0], 
     black_stick: 0,
     white_stick: 0,
 };
@@ -8,6 +8,7 @@ attempt = {
 game_structure = {
     secret_code: [0, 0, 0, 0, 0],
     try: [attempt, attempt, attempt, attempt, attempt, attempt, attempt, attempt, attempt, attempt],
+    //try: attempt[10] - doesn't work.
     current_attempt: 0,
     score : 0,
 }
@@ -36,6 +37,7 @@ function game_print() {
 
     var i;
     for (i = 0; i < 10; i++) {
+        game_zone+=i;
         game_zone+=JSON.stringify(game_structure.try[i]);
         game_zone+=": <br> ";
         }
@@ -49,41 +51,43 @@ function random_digit_generator() {
     return x
 }
 
-    
+function your_code_print() {
+document.getElementById("digit_zero").innerHTML = "Digit 0: " + your_code[0];
+document.getElementById("digit_one").innerHTML = "Digit 1: " + your_code[1];
+document.getElementById("digit_two").innerHTML = "Digit 2: " + your_code[2];
+document.getElementById("digit_three").innerHTML = "Digit 3: " + your_code[3];
+document.getElementById("digit_four").innerHTML = "Digit 4: " + your_code[4];
+document.getElementById("your_c").innerHTML = "Your code: " + your_code;
+}   
     
 function myFunction0() {
 	var x = document.getElementById("digit0").value;
 	your_code[0]=x   
-    document.getElementById("digit_zero").innerHTML = "Digit 0: " + x;
-	document.getElementById("your_c").innerHTML = "Your code: " + your_code;
+	your_code_print()
 	return x
 }
 function myFunction1() {
 	var x = document.getElementById("digit1").value;
 	your_code[1]=x   
-    document.getElementById("digit_one").innerHTML = "Digit 1: " + x;
-	document.getElementById("your_c").innerHTML = "Your code: " + your_code;
+	your_code_print()
 	return x
 }
 function myFunction2() {
 	var x = document.getElementById("digit2").value;
 	your_code[2]=x   
-    document.getElementById("digit_two").innerHTML = "Digit 2: " + x;
-	document.getElementById("your_c").innerHTML = "Your code: " + your_code;
+	your_code_print()
 	return x
 }
 function myFunction3() {
 	var x = document.getElementById("digit3").value;
 	your_code[3]=x   
-    document.getElementById("digit_three").innerHTML = "Digit 3: " + x;
-	document.getElementById("your_c").innerHTML = "Your code: " + your_code;
+	your_code_print()
 	return x
 }
 function myFunction4() {
 	var x = document.getElementById("digit4").value;
-	your_code[4]=x   
-    document.getElementById("digit_four").innerHTML = "Digit 4: " + x;
-	document.getElementById("your_c").innerHTML = "Your code: " + your_code;
+	your_code[4]=x    
+	your_code_print()
 	return x
 }
 
@@ -99,5 +103,36 @@ function code_compare() {
     document.getElementById("black_s").innerHTML = "uhadnute: " + black_stick;
 	document.getElementById("white_s").innerHTML = "trefena barva: " + white_stick;
 	return white_stick
+}
+
+function clear_attempt_slot(i) {
+    var attempt_tmp = attempt;
+    attempt_tmp.no = 5 ;
+    attempt_tmp.code = [7, 7, 7, 7, 5];
+    attempt_tmp.black_stick = i;
+    attempt_tmp.white_stick =i+1;    
+    game_structure.try[i]=attempt_tmp ;
+}
+
+function code_setter_init() {
+    document.getElementById("digit0").value="Empty";
+    document.getElementById("digit1").value="Empty";
+    document.getElementById("digit2").value="Empty";
+    document.getElementById("digit3").value="Empty";     
+    document.getElementById("digit4").value="Empty";   
+}
+function game_zone_init() {
+    code_setter_init();
+    your_code=[0, 0, 0, 0, 0] ;
+    your_code_print();
+    var i;
+    for (i = 0; i < 5; i++) {
+        clear_attempt_slot(i);
+    }
+    game_print()
+}
+    
+function play_again() {
+    game_zone_init();
 }
 
