@@ -25,8 +25,8 @@ attempt_number_print();
 
 function attempt_number_print() {
    var attempt_no="Pokus ";
-   attempt_no+=game_structure.current_attempt ;
-   attempt_no+="<br>";
+   attempt_no+=game_structure.current_attempt + 1 ;
+   attempt_no+=" : <br>";
     document.getElementById("pokus_c").innerHTML =attempt_no; 
 }
 
@@ -37,7 +37,6 @@ function game_print() {
 
     var i;
     for (i = 0; i < 10; i++) {
-        game_zone+=i;
         clear_attempt_slot(i)
         game_zone+=JSON.stringify(game_structure.try[i]);
         game_zone+=": <br> ";
@@ -95,10 +94,10 @@ function myFunction4() {
 function code_compare() {
     var i;
     for (i = 0; i < secret_code.length; i++) {
-        secret_code[i]=random_digit_generator();
+        game_structure.secret_code[i]=random_digit_generator();
         }
          
-	document.getElementById("secret_c").innerHTML = "Secret code: " + secret_code;
+	document.getElementById("secret_c").innerHTML = "Secret code: " + game.structure.secret_code;
 	black_stick=random_digit_generator()      
     white_stick=random_digit_generator()     
     document.getElementById("black_s").innerHTML = "uhadnute: " + black_stick;
@@ -109,9 +108,9 @@ function code_compare() {
 function clear_attempt_slot(i) {
     var attempt_tmp = attempt;
     attempt_tmp.no = i+1 ;
-    attempt_tmp.code = [7, 7, 7, 7, 5];
-    attempt_tmp.black_stick = i;
-    attempt_tmp.white_stick =i+1;    
+    attempt_tmp.code = [0, 0, 0, 0, 0];
+    attempt_tmp.black_stick = 0;
+    attempt_tmp.white_stick =0;    
     game_structure.try[i]=attempt_tmp ;
 }
 
@@ -122,15 +121,23 @@ function code_setter_init() {
     document.getElementById("digit3").value="Empty";     
     document.getElementById("digit4").value="Empty";   
 }
+
+function secret_code_set() {
+    var i;
+    for (i = 0; i < secret_code.length; i++) {
+        game_structure.secret_code[i]=random_digit_generator();
+        }
+        }
 function game_zone_init() {
+    secret_code_set();
     code_setter_init();
     your_code=[0, 0, 0, 0, 0] ;
     your_code_print();
     var i;
-    for (i = 0; i < 5; i++) {
-        clear_attempt_slot(7);
+    for (i = 0; i < 10; i++) {
+        clear_attempt_slot(10);
     }
-    game_print()
+    game_print();
 }
     
 function play_again() {
