@@ -40,6 +40,11 @@ class Game_Zone {
 
     code_verify()   {
         this.sendButton.onclick = () => {
+            this.code_selector[0] = document.getElementById("digit0").value;
+            this.code_selector[1] = document.getElementById("digit1").value;
+            this.code_selector[2] = document.getElementById("digit2").value;
+            this.code_selector[3] = document.getElementById("digit3").value;        
+            this.code_selector[4] = document.getElementById("digit4").value;
             const attempt = new Attempt(this.actual_att, this.code_selector, this.actual_att-1, this.actual_att+3);
             this.attempts.push(attempt);
             this.actual_att+=1;
@@ -50,7 +55,7 @@ class Game_Zone {
     }
 
     printMy_code() {
-        this.vypis_muj_kod.innerHTML=this.code_selector[0] ;
+        this.vypis_muj_kod.innerHTML=this.code_selector ;
 
     }
 
@@ -70,5 +75,5 @@ class Game_Zone {
     }
 
 const game_zone=new Game_Zone();
-//game_zone.printMy_code();
+game_zone.printMy_code();
 
