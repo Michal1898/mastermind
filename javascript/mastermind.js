@@ -124,6 +124,8 @@ class Game_Zone {
         this.printGame = document.getElementById("game_zone");
         this.printGame_zone();
         this.printMy_code();
+        this.print_Current_att = document.getElementById("active_att");
+        this.print_actual_att();
 
 
     }
@@ -135,6 +137,7 @@ class Game_Zone {
             this.actual_att+=1;
             this.printGame_zone();
             this.printMy_code();
+            this.print_actual_att();
         };
 
     }
@@ -154,6 +157,13 @@ class Game_Zone {
             this.printGame.innerHTML += `  Bílý ${att.black}  <br>`;
     }
       }
+
+    print_actual_att() {
+        this.print_Current_att.innerHTML = ""
+        const att = this.actual_att;
+        this.print_Current_att.innerHTML += `  Pokus: ${(att)+1} <br>`;
+
+    }
 
     selector_Button_disabled() {
         this.sendButton.disabled = false ;
