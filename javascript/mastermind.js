@@ -24,8 +24,10 @@ class Game_Zone {
         this.code_selector4 = document.getElementById("digit4").value;
 
         this.sendButton = document.getElementById("check_code");
-
+        this.vypis_muj_kod = document.getElementById("your_c");
+        this.vypis_muj_kod.innerHTML="Michal";
         this.code_verify();
+        //
         this.printGame = document.getElementById("game_zone");
     }
 
@@ -34,9 +36,14 @@ class Game_Zone {
             const attempt = new Attempt(this.actual_att, this.code_selector, this.actual_att-1, this.actual_att+3);
             this.attempts.push(attempt);
             this.actual_att+=1;
-
             this.printGame_zone();
-        }
+            this.printMy_code();
+        };
+    }
+
+    printMy_code() {
+        this.vypis_muj_kod.innerHTML="Wlk ze Dvora." ;
+
     }
 
     printGame_zone()    {
@@ -49,9 +56,11 @@ class Game_Zone {
             this.printGame.innerHTML += `  Bílý ${att.black}  <br>`;
     }
       }
+
   
     
     }
 
 const game_zone=new Game_Zone();
+//game_zone.printMy_code();
 
