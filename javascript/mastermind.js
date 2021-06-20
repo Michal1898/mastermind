@@ -11,6 +11,7 @@ class Attempt {
 class Game_Zone {
     constructor(jazyk = "cs-CZ") {
         this.MAX_ATTEMPTS = 10;
+        this.charset="windows-1250"
         this.actual_att = 0;
         this.secret_code=["0", "0", "0", "0", "0"];
         this.attempts = [];
