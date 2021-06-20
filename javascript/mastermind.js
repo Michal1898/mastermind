@@ -1,176 +1,57 @@
-const MAX_ATTEMPTS = 10;
+class Attempt {
 
-let your_code=[0, 0, 0, 0, 0] ;
-let secret_code=[1, 2, 3, 4, 5] ;
-
-let black_stick=0 ;
-let white_stick=0;
-
-attempt = {
-    no: 0,
-    code: [0, 0, 0, 0, 0], 
-    black_stick: 0,
-    white_stick: 0,
-};
-
-game_structure = {
-    secret_code: [0, 0, 0, 0, 0],
-    code_check: [attempt, attempt, attempt, attempt, attempt, attempt, attempt, attempt, attempt, attempt],
-    current_attempt: 0,
-    score : 0,
-    };
-    
-function clear_attempt_slot(j) {
-    var attempt_temp = attempt ;
-    attempt_temp.no = j ;
-    attempt_temp.code = [0, 0, 0, 0, 0] ;
-    attempt_temp.black_stick = j+1 ;
-    attempt_temp.white_stick =0 ;  
-    game_structure.code_check[j]=attempt_temp;  
+    constructor (no, my_code, black_s, white_s) {
+        this.no = no;
+        this.my_code=my_code;
+        this.black=black_s;
+        this.white=white_s;
+    }
 }
 
-function attempt_number_print() {
-   var attempt_no="Pokus ";
-   attempt_no+=game_structure.current_attempt;
-   attempt_no+=" : <br>";
-    document.getElementById("pokus_c").innerHTML = attempt_no; 
-}
+class Game_Zone {
+    constructor(jazyk = "cs-CZ") {
+        this.MAX_ATTEMPTS = 10;
+        this.actual_att = 0;
+        this.secret_code=["0", "0", "0", "0", "0"];
+        this.attempts = [];
 
-function game_print() {
-    var game_zone=" Secret Code: ";
-    game_zone+=game_structure.secret_code ;
-    game_zone+=" <br> ";
+        this.code_selector=["0", "0", "0", "0", "0"];
 
-    for (var i = 0; i < MAX_ATTEMPTS; i++) {
-        game_zone+=i;
-        game_zone+=JSON.stringify(game_structure.code_check[i]);
-        game_zone+=": <br> ";
-        }
+        this.code_selector0 = document.getElementById("digit0").value;
+        this.code_selector1 = document.getElementById("digit1").value;
+        this.code_selector2 = document.getElementById("digit2").value;
+        this.code_selector3 = document.getElementById("digit3").value;        
+        this.code_selector4 = document.getElementById("digit4").value;
 
-    document.getElementById("game_zone").innerHTML = game_zone;
+        this.sendButton = document.getElementById("check_code");
+
+        this.code_verify();
+        this.printGame = document.getElementById("game_zone");
     }
 
+    code_verify()   {
+        this.sendButton.onclick = () => {
+            const attempt = new Attempt(this.actual_att, this.code_selector, this.actual_att-1, this.actual_att+3);
+            this.attempts.push(attempt);
+            this.actual_att+=1;
 
-function random_digit_generator() {
-    var x= Math.floor(Math.random()*8)+1;
-    return x;
-}
-
-function your_code_print() {
-    document.getElementById("digit_zero").innerHTML = "Digit 0: " + your_code[0];
-    document.getElementById("digit_one").innerHTML = "Digit 1: " + your_code[1];
-    document.getElementById("digit_two").innerHTML = "Digit 2: " + your_code[2];
-    document.getElementById("digit_three").innerHTML = "Digit 3: " + your_code[3];
-    document.getElementById("digit_four").innerHTML = "Digit 4: " + your_code[4];
-    document.getElementById("your_c").innerHTML = "Your code: " + your_code;
-}   
-    
-function myFunction0() {
-	var x = document.getElementById("digit0").value;
-	your_code[0]=x   ;
-	your_code_print();
-}
-function myFunction1() {
-	var x = document.getElementById("digit1").value;
-	your_code[1]=x   ;
-	your_code_print();
-}
-function myFunction2() {
-	var x = document.getElementById("digit2").value;
-	your_code[2]=x  ; 
-	your_code_print();
-}
-function myFunction3() {
-	var x = document.getElementById("digit3").value;
-	your_code[3]=x   ;
-	your_code_print();
-}
-function myFunction4() {
-	var x = document.getElementById("digit4").value;
-	your_code[4]=x    ;
-	your_code_print();
-}
-
-function code_compare() {
-    var i=game_structure.current_attempt;
-    var attempt_temp=attempt;
-    attempt_temp.no=i;
-    attempt_temp.code=your_code;
-    attempt_temp.black_stick=i+2;
-    attempt_temp.white_stick=i-3;
-    
-    active_attempt="Pokus: ";
-    active_attempt+=attempt_temp.no;
-    active_attempt+=" Your Code: ";
-    active_attempt+=attempt_temp.code;
-    active_attempt+=" Black: ";
-    active_attempt+=attempt_temp.black_stick;
-    active_attempt+=" White: ";
-    active_attempt+=attempt_temp.white_stick;
-    //document.getElementById("active_att").innerHTML = active_attempt;
-    
-    game_structure.code_check[i]=attempt_temp;
-    document.getElementById("active_att").innerHTML = JSON.stringify(game_structure.code_check[i]);
-    game_structure.current_attempt+=1;
-    game_print();
-    attempt_number_print(); 
-    //your_code_print();
-
-}
-
-
-
-function code_setter_init() {
-    document.getElementById("digit0").value="Empty";
-    document.getElementById("digit1").value="Empty";
-    document.getElementById("digit2").value="Empty";
-    document.getElementById("digit3").value="Empty";     
-    document.getElementById("digit4").value="Empty";   
-}
-
-function secret_code_set() {
-    for (var i = 0; i < secret_code.length; i++) {
-        game_structure.secret_code[i]=random_digit_generator();
+            this.printGame_zone();
         }
-}
-        
-function game_zone_init() {
-    game_structure.current_attempt=0;
+    }
 
-    game_structure.score = 0;
-    secret_code_set();
-    code_setter_init();
-    your_code=[0, 0, 0, 0, 0] ;
-    your_code_print();
-
-    //for (var i = 0; i < MAX_ATTEMPTS; i++) {
-    //    clear_attempt_slot(i);
-    //}
-clear_attempt_slot(0);
-clear_attempt_slot(1);
-clear_attempt_slot(2);
-clear_attempt_slot(3);
-clear_attempt_slot(4);
-clear_attempt_slot(5);
-clear_attempt_slot(6);
-clear_attempt_slot(7);
-clear_attempt_slot(8);
-clear_attempt_slot(9);
-
-
-    game_print(); 
-    attempt_number_print();    
-
-}
+    printGame_zone()    {
+        this.printGame.innerHTML = "";
+        for (let j = 0; j < this.actual_att; j++)   {
+            const att = this.attempts[j];
+            this.printGame.innerHTML += `  Pokus: ${att.no}`;
+            this.printGame.innerHTML += `  Kód: ${att.my_code}`;
+            this.printGame.innerHTML += `  Černý: ${att.white}`;
+            this.printGame.innerHTML += `  Bílý ${att.black}  <br>`;
+    }
+      }
+  
     
-function play_again() {
-    game_zone_init();
-}
+    }
 
-
-
-
-
-
-
+const game_zone=new Game_Zone();
 
