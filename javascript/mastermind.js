@@ -12,6 +12,15 @@ class Game_Zone {
     constructor(jazyk = "cs-CZ") {
         this.MAX_ATTEMPTS = 10;
         this.charset="windows-1250"
+        this.init_new_game();
+        this.sendButton = document.getElementById("check_code");
+        this.vypis_muj_kod = document.getElementById("your_c");
+        this.vypis_muj_kod.innerHTML="Michal";
+        this.code_verify();
+        this.printGame = document.getElementById("game_zone");
+    }
+
+    init_new_game() {
         this.actual_att = 0;
         this.secret_code=["0", "0", "0", "0", "0"];
         this.attempts = [];
@@ -30,14 +39,8 @@ class Game_Zone {
         this.code_selector[3] = document.getElementById("digit3").value;        
         this.code_selector[4] = document.getElementById("digit4").value;
 
-        this.sendButton = document.getElementById("check_code");
-        this.vypis_muj_kod = document.getElementById("your_c");
-        this.vypis_muj_kod.innerHTML="Michal";
-        this.code_verify();
-        //
-        this.printGame = document.getElementById("game_zone");
-    }
 
+    }
     code_verify()   {
         this.sendButton.onclick = () => {
             this.code_selector[0] = document.getElementById("digit0").value;
