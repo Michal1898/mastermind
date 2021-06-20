@@ -48,7 +48,8 @@ class Game_Zone {
             this.code_selector[2] = document.getElementById("digit2").value;
             this.code_selector[3] = document.getElementById("digit3").value;        
             this.code_selector[4] = document.getElementById("digit4").value;
-            const attempt = new Attempt(this.actual_att, this.code_selector, this.actual_att-1, this.actual_att+3);
+            var g=[this.code_selector[0],this.code_selector[1],this.code_selector[2],this.code_selector[3],this.code_selector[4]];
+            const attempt = new Attempt(this.actual_att, g, this.actual_att-1, this.actual_att+3);
             this.attempts.push(attempt);
             this.actual_att+=1;
             this.printGame_zone();
