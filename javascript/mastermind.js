@@ -13,14 +13,14 @@ class Game_Zone {
         this.MAX_ATTEMPTS = 10;
         this.charset="windows-1250"
         this.init_new_game();
-        this.sendButton = document.getElementById("check_code");
-        this.vypis_muj_kod = document.getElementById("your_c");
-        this.vypis_muj_kod.innerHTML="Michal";
-        this.code_on_change();
-        this.selector_Button_disabled() ;
-        this.code_verify();
-        this.printGame = document.getElementById("game_zone");
+
+        this.new_gameButton.onclick = () => {
+            this.init_new_game();
+        };
     }
+
+
+        
 
     code_changed() {
         this.code_selector[0] = document.getElementById("digit0").value;
@@ -99,6 +99,10 @@ class Game_Zone {
         this.actual_att = 0;
         this.secret_code=["0", "0", "0", "0", "0"];
         this.attempts = [];
+        this.sendButton = document.getElementById("check_code");
+        this.new_gameButton = document.getElementById("new_game");
+        this.vypis_muj_kod = document.getElementById("your_c");
+        this.vypis_muj_kod.innerHTML="Michal";
 
         this.code_selector=["0", "0", "0", "0", "0"];
 
@@ -113,6 +117,13 @@ class Game_Zone {
         this.code_selector[2] = document.getElementById("digit2").value;
         this.code_selector[3] = document.getElementById("digit3").value;        
         this.code_selector[4] = document.getElementById("digit4").value;
+
+        this.code_on_change();
+        this.selector_Button_disabled() ;
+        this.code_verify();
+        this.printGame = document.getElementById("game_zone");
+        this.printGame_zone();
+        this.printMy_code();
 
 
     }
