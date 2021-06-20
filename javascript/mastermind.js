@@ -17,11 +17,17 @@ class Game_Zone {
 
         this.code_selector=["0", "0", "0", "0", "0"];
 
-        this.code_selector0 = document.getElementById("digit0").value;
-        this.code_selector1 = document.getElementById("digit1").value;
-        this.code_selector2 = document.getElementById("digit2").value;
-        this.code_selector3 = document.getElementById("digit3").value;        
-        this.code_selector4 = document.getElementById("digit4").value;
+        document.getElementById("digit0").value="Empty";
+        document.getElementById("digit1").value="Empty";
+        document.getElementById("digit2").value="Empty";
+        document.getElementById("digit3").value="Empty";
+        document.getElementById("digit4").value="Empty";
+
+        this.code_selector[0] = document.getElementById("digit0").value;
+        this.code_selector[1] = document.getElementById("digit1").value;
+        this.code_selector[2] = document.getElementById("digit2").value;
+        this.code_selector[3] = document.getElementById("digit3").value;        
+        this.code_selector[4] = document.getElementById("digit4").value;
 
         this.sendButton = document.getElementById("check_code");
         this.vypis_muj_kod = document.getElementById("your_c");
@@ -39,10 +45,11 @@ class Game_Zone {
             this.printGame_zone();
             this.printMy_code();
         };
+
     }
 
     printMy_code() {
-        this.vypis_muj_kod.innerHTML="Wlk ze Dvora." ;
+        this.vypis_muj_kod.innerHTML=this.code_selector[0] ;
 
     }
 
