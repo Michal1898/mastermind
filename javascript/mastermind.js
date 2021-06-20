@@ -16,9 +16,84 @@ class Game_Zone {
         this.sendButton = document.getElementById("check_code");
         this.vypis_muj_kod = document.getElementById("your_c");
         this.vypis_muj_kod.innerHTML="Michal";
+        this.code_on_change();
+        this.selector_Button_disabled() ;
         this.code_verify();
         this.printGame = document.getElementById("game_zone");
     }
+
+    code_changed() {
+        this.code_selector[0] = document.getElementById("digit0").value;
+        this.code_selector[1] = document.getElementById("digit1").value;
+        this.code_selector[2] = document.getElementById("digit2").value;
+        this.code_selector[3] = document.getElementById("digit3").value;        
+        this.code_selector[4] = document.getElementById("digit4").value;        
+
+        this.printMy_code();
+    }
+
+    code_on_change() {
+        document.getElementById("digit0").onchange = () => {
+            this.code_selector[0] = document.getElementById("digit0").value;
+            this.code_selector[1] = document.getElementById("digit1").value;
+            this.code_selector[2] = document.getElementById("digit2").value;
+            this.code_selector[3] = document.getElementById("digit3").value;        
+            this.code_selector[4] = document.getElementById("digit4").value;   
+
+            this.selector_Button_disabled() ;
+            this.printMy_code();
+
+        };
+
+        document.getElementById("digit1").onchange = () => {
+            this.code_selector[0] = document.getElementById("digit0").value;
+            this.code_selector[1] = document.getElementById("digit1").value;
+            this.code_selector[2] = document.getElementById("digit2").value;
+            this.code_selector[3] = document.getElementById("digit3").value;        
+            this.code_selector[4] = document.getElementById("digit4").value;        
+    
+            this.selector_Button_disabled() ;
+            this.printMy_code();
+
+        };       
+        
+        document.getElementById("digit2").onchange = () => {
+            this.code_selector[0] = document.getElementById("digit0").value;
+            this.code_selector[1] = document.getElementById("digit1").value;
+            this.code_selector[2] = document.getElementById("digit2").value;
+            this.code_selector[3] = document.getElementById("digit3").value;        
+            this.code_selector[4] = document.getElementById("digit4").value;        
+    
+            this.selector_Button_disabled() ;
+            this.printMy_code();
+
+        };
+
+        document.getElementById("digit3").onchange = () => {
+            this.code_selector[0] = document.getElementById("digit0").value;
+            this.code_selector[1] = document.getElementById("digit1").value;
+            this.code_selector[2] = document.getElementById("digit2").value;
+            this.code_selector[3] = document.getElementById("digit3").value;        
+            this.code_selector[4] = document.getElementById("digit4").value;        
+    
+            this.selector_Button_disabled() ;
+            this.printMy_code();
+
+        };
+
+        document.getElementById("digit4").onchange = () => {
+            this.code_selector[0] = document.getElementById("digit0").value;
+            this.code_selector[1] = document.getElementById("digit1").value;
+            this.code_selector[2] = document.getElementById("digit2").value;
+            this.code_selector[3] = document.getElementById("digit3").value;        
+            this.code_selector[4] = document.getElementById("digit4").value;        
+    
+            this.selector_Button_disabled() ;
+            this.printMy_code();
+
+        };        
+    }
+
 
     init_new_game() {
         this.actual_att = 0;
@@ -48,8 +123,8 @@ class Game_Zone {
             this.code_selector[2] = document.getElementById("digit2").value;
             this.code_selector[3] = document.getElementById("digit3").value;        
             this.code_selector[4] = document.getElementById("digit4").value;
-            var g=[this.code_selector[0],this.code_selector[1],this.code_selector[2],this.code_selector[3],this.code_selector[4]];
-            const attempt = new Attempt(this.actual_att, g, this.actual_att-1, this.actual_att+3);
+            let g=[this.code_selector[0],this.code_selector[1],this.code_selector[2],this.code_selector[3],this.code_selector[4]];
+            const attempt = new Attempt(this.actual_att, g, 0, 0);
             this.attempts.push(attempt);
             this.actual_att+=1;
             this.printGame_zone();
@@ -74,10 +149,18 @@ class Game_Zone {
     }
       }
 
-  
+    selector_Button_disabled() {
+        this.sendButton.disabled = false ;
+        for (let i = 0; i < 5; i++) {
+            if (this.code_selector[i]=="Empty") {
+                this.sendButton.disabled = true ;
+            }
+          } 
+
+    }
     
     }
 
 const game_zone=new Game_Zone();
-game_zone.printMy_code();
+game_zone.code_on_change();
 
