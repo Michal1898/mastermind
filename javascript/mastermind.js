@@ -118,11 +118,6 @@ class Game_Zone {
     }
     code_verify()   {
         this.sendButton.onclick = () => {
-            this.code_selector[0] = document.getElementById("digit0").value;
-            this.code_selector[1] = document.getElementById("digit1").value;
-            this.code_selector[2] = document.getElementById("digit2").value;
-            this.code_selector[3] = document.getElementById("digit3").value;        
-            this.code_selector[4] = document.getElementById("digit4").value;
             let g=[this.code_selector[0],this.code_selector[1],this.code_selector[2],this.code_selector[3],this.code_selector[4]];
             const attempt = new Attempt(this.actual_att, g, 0, 0);
             this.attempts.push(attempt);
@@ -162,5 +157,4 @@ class Game_Zone {
     }
 
 const game_zone=new Game_Zone();
-game_zone.code_on_change();
 
