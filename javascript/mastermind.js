@@ -20,9 +20,6 @@ class Game_Zone {
         };
     }
 
-
-        
-
     code_changed() {
         this.code_selector[0] = document.getElementById("digit0").value;
         this.code_selector[1] = document.getElementById("digit1").value;
@@ -142,10 +139,15 @@ class Game_Zone {
             this.attempts.push(attempt);
             
             this.attemp_evalution (act_att, code_compared, code_secret);
-            this.actual_att+=1;
+
+            if (act_att<this.MAX_ATTEMPTS) {
+                this.actual_att+=1;
+            }
+            
             this.printGame_zone();
             this.printMy_code();
             this.print_actual_att();
+
         };
 
     }
@@ -160,7 +162,6 @@ class Game_Zone {
         this.vypis_tajny_kod.innerHTML=` Tajný kód: ${secret_code} `;
 
     }
-
 
     printGame_zone()    {
         this.printSecret_code();
@@ -192,7 +193,6 @@ class Game_Zone {
     }
 
     secret_code_generator() {
-
         var i;
         for (let i = 0; i < this.DIGITS_NO ; i++) {
             var x= Math.floor(Math.random()*8)+1;
@@ -250,6 +250,6 @@ class Game_Zone {
     }
     
     }
+    const game_zone=new Game_Zone();
 
-const game_zone=new Game_Zone();
 
