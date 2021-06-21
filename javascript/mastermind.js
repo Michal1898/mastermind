@@ -11,7 +11,7 @@ class Attempt {
 class Game_Zone {
     constructor(jazyk = "cs-CZ") {
         this.MAX_ATTEMPTS = 10;
-        this.charset="windows-1250"
+        this.charset="utf-8"
         this.init_new_game();
 
         this.new_gameButton.onclick = () => {
@@ -151,7 +151,7 @@ class Game_Zone {
         this.printGame.innerHTML = "";
         for (let j = 0; j < this.actual_att; j++)   {
             const att = this.attempts[j];
-            this.printGame.innerHTML += `  Pokus: ${att.no}`;
+            this.printGame.innerHTML += `  Pokus: ${att.no+1}`;
             this.printGame.innerHTML += `  Kód: ${att.my_code}`;
             this.printGame.innerHTML += `  Černý: ${att.white}`;
             this.printGame.innerHTML += `  Bílý ${att.black}  <br>`;
