@@ -11,6 +11,7 @@ class Attempt {
 class Game_Zone {
     constructor(jazyk = "cs-CZ") {
         this.MAX_ATTEMPTS = 10;
+        this.DIGITS_NO = 5;
         this.charset="utf-8"
         this.init_new_game();
 
@@ -177,7 +178,7 @@ class Game_Zone {
 
     selector_Button_disabled() {
         this.sendButton.disabled = false ;
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < this.DIGITS_NO ; i++) {
             if (this.code_selector[i]=="Empty") {
                 this.sendButton.disabled = true ;
             }
@@ -188,7 +189,7 @@ class Game_Zone {
     secret_code_generator() {
 
         var i;
-        for (i = 0; i < 5; i++) {
+        for (i = 0; i < this.DIGITS_NO ; i++) {
             var x= Math.floor(Math.random()*8)+1;
             this.secret_code[i]=x;
             }
