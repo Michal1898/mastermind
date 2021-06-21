@@ -98,9 +98,11 @@ class Game_Zone {
     init_new_game() {
         this.actual_att = 0;
         this.secret_code=["0", "0", "0", "0", "0"];
+        this.secret_code_generator();
         this.attempts = [];
         this.sendButton = document.getElementById("check_code");
         this.new_gameButton = document.getElementById("new_game");
+        this.vypis_tajny_kod = document.getElementById("secret_c")
         this.vypis_muj_kod = document.getElementById("your_c");
         this.vypis_muj_kod.innerHTML="Michal";
 
@@ -147,14 +149,22 @@ class Game_Zone {
 
     }
 
+    printSecret_code() {
+        const secret_code = this.secret_code;
+        this.vypis_tajny_kod.innerHTML=` Tajný kód: ${secret_code} `;
+
+    }
+
+
     printGame_zone()    {
+        this.printSecret_code();
         this.printGame.innerHTML = "";
         for (let j = 0; j < this.actual_att; j++)   {
             const att = this.attempts[j];
             this.printGame.innerHTML += `  Pokus: ${att.no+1}`;
             this.printGame.innerHTML += `  Kód: ${att.my_code}`;
             this.printGame.innerHTML += `  Černý: ${att.white}`;
-            this.printGame.innerHTML += `  Bílý ${att.black}  <br>`;
+            this.printGame.innerHTML += `  Bílý: ${att.black}  <br>`;
     }
       }
 
@@ -173,6 +183,15 @@ class Game_Zone {
             }
           } 
 
+    }
+
+    secret_code_generator() {
+
+        var i;
+        for (i = 0; i < 5; i++) {
+            var x= Math.floor(Math.random()*8)+1;
+            this.secret_code[i]=x;
+            }
     }
     
     }
