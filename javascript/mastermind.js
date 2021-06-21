@@ -134,9 +134,14 @@ class Game_Zone {
     }
     code_verify()   {
         this.sendButton.onclick = () => {
-            let g=[this.code_selector[0],this.code_selector[1],this.code_selector[2],this.code_selector[3],this.code_selector[4]];
-            const attempt = new Attempt(this.actual_att, g, 0, 0);
+            let act_att=this.actual_att;
+            let m = [this.code_selector[0],this.code_selector[1],this.code_selector[2],this.code_selector[3],this.code_selector[4]];
+            let code_compared=Array.from (m) ;
+            let code_secret=Array.from(this.secret_code);
+            const attempt = new Attempt(act_att, m, 0, 0);
             this.attempts.push(attempt);
+            
+            this.attemp_evalution (act_att, code_compared, code_secret);
             this.actual_att+=1;
             this.printGame_zone();
             this.printMy_code();
@@ -164,8 +169,8 @@ class Game_Zone {
             const att = this.attempts[j];
             this.printGame.innerHTML += `  Pokus: ${att.no+1}`;
             this.printGame.innerHTML += `  Kód: ${att.my_code}`;
-            this.printGame.innerHTML += `  Černý: ${att.white}`;
-            this.printGame.innerHTML += `  Bílý: ${att.black}  <br>`;
+            this.printGame.innerHTML += `  Černý: ${att.black}`;
+            this.printGame.innerHTML += `  Bílý: ${att.white}  <br>`;
     }
       }
 
@@ -189,10 +194,59 @@ class Game_Zone {
     secret_code_generator() {
 
         var i;
-        for (i = 0; i < this.DIGITS_NO ; i++) {
+        for (let i = 0; i < this.DIGITS_NO ; i++) {
             var x= Math.floor(Math.random()*8)+1;
             this.secret_code[i]=x;
             }
+    }
+
+    attemp_evalution (att_no, y_c, s_c) {
+        let black_s = 0;
+        let white_s = 0;
+        let digits_rest=this.DIGITS_NO;
+        //black stick
+        let new_iteration = true;
+        while(new_iteration) {
+            new_iteration = false ;
+        for (let g = 0; g < digits_rest; g++)    {
+        
+                if (s_c[g]==y_c[g]) {
+                    black_s+=1;
+                    s_c.splice(g, 1)
+                    y_c.splice(g, 1)
+                    digits_rest=y_c.length;
+                    new_iteration=true;
+                    break;
+
+                }
+
+            }
+        }
+        // white stick 
+        new_iteration = true;
+        while(new_iteration) {
+                new_iteration = false;
+            for (let g = 0; g < digits_rest; g++)    {
+                for(let h = 0 ; h < digits_rest; h++)    {
+            
+                    if (s_c[g]==y_c[h]) {
+                        white_s+=1;
+                        s_c.splice(g, 1)
+                        y_c.splice(h, 1)
+    
+                        digits_rest=s_c.length;
+                        new_iteration=true;
+                        break;
+                    }
+
+                }
+
+                }
+            } 
+        let w=att_no;
+        this.attempts[w].black=black_s;
+        this.attempts[w].white=white_s;
+
     }
     
     }
