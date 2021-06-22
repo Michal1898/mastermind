@@ -122,6 +122,10 @@ class Game_Zone {
         this.code_selector[3] = document.getElementById("digit3").value;        
         this.code_selector[4] = document.getElementById("digit4").value;
 
+        this.end_game_title = document.getElementById("end_game1") ;
+        this.end_game_report = document.getElementById("end_game2") ;
+
+        this.game_is_over();
         this.code_on_change();
         this.selector_Button_disabled() ;
         this.code_verify();
@@ -144,24 +148,24 @@ class Game_Zone {
             
             this.attemp_evalution (act_att, code_compared, code_secret);
 
-            if (act_att<this.MAX_ATTEMPTS) {
-                this.actual_att+=1;
+            if (act_att==this.MAX_ATTEMPTS-1) {
+                this.game_over=true;
             }
             else {
-                this.game_over=true;
+                this.actual_att+=1;                
             }
             
             this.printGame_zone();
             this.printMy_code();
             this.print_actual_att();
-
+            this.game_is_over()
         };
 
     }
 
     printMy_code() {
-        this.vypis_muj_kod.innerHTML=this.code_selector ;
-
+        this.vypis_muj_kod.innerHTML="" ;
+        this.vypis_muj_kod.innerHTML+=`${this.code_selector}` ;
     }
 
     printSecret_code() {
@@ -192,7 +196,7 @@ class Game_Zone {
     selector_Button_disabled() {
         this.sendButton.disabled = false ;
         for (let i = 0; i < this.DIGITS_NO ; i++) {
-            if (this.code_selector[i]=="Empty") {
+            if (this.code_selector[i]=="Empty" || this.game_over) {
                 this.sendButton.disabled = true ;
             }
           } 
@@ -265,6 +269,19 @@ class Game_Zone {
 
     }
     
+    game_is_over() {
+        if (this.game_over) {
+            this.end_game_title.innerHTML = " Konec hry " ;
+
+            this.end_game_report.innerHTML = "Protokol "
+        }
+        else {
+            this.end_game_title.innerHTML = "" ;
+
+            this.end_game_report.innerHTML = "Jsi ve hre. "
+        }
+    }
+
     }
     const game_zone=new Game_Zone();
 
