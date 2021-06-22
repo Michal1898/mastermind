@@ -334,6 +334,15 @@ class Game_Zone {
             }
             this.end_game_report.innerHTML+=`</br> `;
             
+            let att=this.actual_att;
+            this.end_game_report.innerHTML+=`Využito ${att} pokusů z ${this.MAX_ATTEMPTS} možných`;
+            this.end_game_report.innerHTML+=`</br> `;
+            let att_rest = this.MAX_ATTEMPTS-att;
+            this.end_game_report.innerHTML+=`Zbylé pokusy: ${att_rest} `;
+            this.end_game_report.innerHTML+=`</br> `; 
+            let slot_points=att_rest*this.UNUSED_ATTEMPT;
+            this.end_game_report.innerHTML+=`Za ušetřené pokusy jsi dostal: ${att_rest} * ${this.UNUSED_ATTEMPT} = ${slot_points} bodů!`;    
+            this.end_game_report.innerHTML+=`</br> `;             
         }
 
         else {
