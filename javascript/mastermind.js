@@ -180,8 +180,12 @@ class Game_Zone {
 
     printSecret_code() {
         const secret_code = this.secret_code;
-        this.vypis_tajny_kod.innerHTML=` Tajný kód: ${secret_code} `;
-
+        if (this.game_over) {
+            this.vypis_tajny_kod.innerHTML=` Tajný kód: ${secret_code} `;
+        }
+        else    {
+            this.vypis_tajny_kod.innerHTML=` Tajný kód: ? ? ? ? ? `;
+        }
     }
 
     printGame_zone(att_used)    {
@@ -283,7 +287,7 @@ class Game_Zone {
    
     game_is_over() {
         this.selector_Button_disabled() ;
-
+        this.printSecret_code();
         
         if (this.game_over) {
             let game_score = 0;
@@ -344,7 +348,7 @@ class Game_Zone {
         else {
             this.end_game_title.innerHTML = "" ;
 
-            this.end_game_report.innerHTML = "Jsi ve hre. "
+            this.end_game_report.innerHTML = "Jsi ve hře. "
         }
     }
 
