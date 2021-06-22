@@ -148,17 +148,18 @@ class Game_Zone {
             
             this.attemp_evalution (act_att, code_compared, code_secret);
 
-            if (act_att==this.MAX_ATTEMPTS-1) {
-                this.game_over=true;
-            }
-            else {
-                this.actual_att+=1;                
-            }
-            
             this.printGame_zone();
             this.printMy_code();
             this.print_actual_att();
-            this.game_is_over()
+
+            if (act_att<this.MAX_ATTEMPTS) {
+                this.actual_att+=1;
+            }
+            else {
+                this.game_over=true;               
+            }
+            this.game_is_over()            
+
         };
 
     }
