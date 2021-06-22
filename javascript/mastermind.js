@@ -313,9 +313,29 @@ class Game_Zone {
         let game_score = this.score_calculate();
         if (this.game_over) {
             this.end_game_title.innerHTML = " Konec hry " ;
-            this.end_game_report.innerHTML="";
-            this.end_game_report.innerHTML = `Skore: ${game_score} `;
+            this.end_game_report.innerHTML="Protokol o hře: ";
+            this.end_game_report.innerHTML="</br> ";
+            this.end_game_report.innerHTML += `Skore: ${game_score} `;
+            this.end_game_report.innerHTML+=`</br> `;
+
+            if(this.code_hacked) {
+                this.end_game_report.innerHTML+=`Prolomil jsi kód! Odměna ${this.CODE_HACKED} bodů!`;
+            }
+            else {
+                this.end_game_report.innerHTML+=`Bohužel se ti nepodařilo prolomit kód!`;
+                this.end_game_report.innerHTML+=`</br> `;
+
+                if(this.all_digits_guessed) {
+                    this.end_game_report.innerHTML+=`Našel jsi všechny čísla. Bohužel ve špatném pořadí. Odměna ${this.ALL_DIGITS_QUESSESED} bodů!`;
+                }
+                else {
+                    this.end_game_report.innerHTML+='Bohužel se ti nepodařilo najít všechna čísla!';
+                }
+            }
+            this.end_game_report.innerHTML+=`</br> `;
+            
         }
+
         else {
             this.end_game_title.innerHTML = "" ;
 
