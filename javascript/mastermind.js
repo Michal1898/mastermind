@@ -190,7 +190,7 @@ class Game_Zone {
     print_actual_att() {
         this.print_Current_att.innerHTML = ""
         const att = this.actual_att;
-        this.print_Current_att.innerHTML += `  Pokus: ${(att)+1} <br>`;
+        this.print_Current_att.innerHTML += `  Aktuální Pokus Číslo : ${(att)+1} <br>`;
 
     }
 
@@ -271,6 +271,7 @@ class Game_Zone {
     }
     
     game_is_over() {
+        this.selector_Button_disabled() ;
         if (this.game_over) {
             this.end_game_title.innerHTML = " Konec hry " ;
 
