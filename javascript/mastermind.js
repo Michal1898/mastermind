@@ -165,7 +165,8 @@ class Game_Zone {
                 this.print_actual_att();
             }
             else {
-                this.game_over=true;              
+                this.game_over=true;    
+                this.actual_att=this.MAX_ATTEMPTS;         
             }
             this.game_is_over()
         };
@@ -289,17 +290,20 @@ class Game_Zone {
             your_score+=this.ALL_DIGITS_QUESSESED;
         }
 
-        /*
-        let rest_attempts=this.MAX_ATTEMPTS-1-this.actual_att;
+ 
+        let rest_attempts=this.MAX_ATTEMPTS-this.actual_att;
         your_score+=rest_attempts * this.UNUSED_ATTEMPT;
 
-        for (let j=0; j<=this.actual_att;j++){
-            let b=this.attempts[j].black_s;
-            let w=this.attempts[j].white_s;
-            your_score+=b * this.BLACK_STICK;
-            your_score+=w * this.WHITE_STICK;
+        for (let j=0; j<this.actual_att;j++){
+  
+            let b=this.attempts[j].black;
+            let w=this.attempts[j].white;
+                     
+            your_score+=b*this.BLACK_STICK;
+            your_score+=w*this.WHITE_STICK;
+
         }
-        */
+
         return your_score;
     }
 
