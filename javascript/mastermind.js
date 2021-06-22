@@ -268,7 +268,7 @@ class Game_Zone {
         this.attempts[w].black=black_s;
         this.attempts[w].white=white_s;
 
-        if (white_s==5) {
+        if (black_s==5) {
             this.code_hacked=true;
             this.game_over=true;
         }
