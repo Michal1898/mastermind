@@ -130,7 +130,7 @@ class Game_Zone {
         this.selector_Button_disabled() ;
         this.code_verify();
         this.printGame = document.getElementById("game_zone");
-        this.printGame_zone();
+        this.printGame_zone(0);
         this.printMy_code();
         this.print_Current_att = document.getElementById("active_att");
         this.print_actual_att();
@@ -148,18 +148,18 @@ class Game_Zone {
             
             this.attemp_evalution (act_att, code_compared, code_secret);
 
-            this.printGame_zone();
+            this.printGame_zone(act_att+1);
             this.printMy_code();
-            this.print_actual_att();
 
-            if (act_att<this.MAX_ATTEMPTS) {
-                this.actual_att+=1;
+
+            if (this.actual_att<this.MAX_ATTEMPTS-1) {
+                this.actual_att+=1; 
+                this.print_actual_att();
             }
             else {
-                this.game_over=true;               
+                this.game_over=true;              
             }
-            this.game_is_over()            
-
+            this.game_is_over()
         };
 
     }
@@ -175,10 +175,10 @@ class Game_Zone {
 
     }
 
-    printGame_zone()    {
+    printGame_zone(att_used)    {
         this.printSecret_code();
         this.printGame.innerHTML = "";
-        for (let j = 0; j < this.actual_att; j++)   {
+        for (let j = 0; j < att_used; j++)   {
             const att = this.attempts[j];
             this.printGame.innerHTML += `  Pokus: ${att.no+1}`;
             this.printGame.innerHTML += `  Kód: ${att.my_code}`;
@@ -285,5 +285,4 @@ class Game_Zone {
 
     }
     const game_zone=new Game_Zone();
-
 
