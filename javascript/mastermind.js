@@ -98,6 +98,10 @@ class Game_Zone {
         this.secret_code=["0", "0", "0", "0", "0"];
         this.secret_code_generator();
         this.attempts = [];
+        this.game_over = false;
+        this.code_hacked=false;
+        this.all_digits_guessed=false;
+
         this.sendButton = document.getElementById("check_code");
         this.new_gameButton = document.getElementById("new_game");
         this.vypis_tajny_kod = document.getElementById("secret_c")
@@ -142,6 +146,9 @@ class Game_Zone {
 
             if (act_att<this.MAX_ATTEMPTS) {
                 this.actual_att+=1;
+            }
+            else {
+                this.game_over=true;
             }
             
             this.printGame_zone();
@@ -243,9 +250,18 @@ class Game_Zone {
 
                 }
             } 
+        let total_s=white_s+black_s;    
         let w=att_no;
         this.attempts[w].black=black_s;
         this.attempts[w].white=white_s;
+
+        if (white_s==5) {
+            this.code_hacked=true;
+            this.game_over=true;
+        }
+        else if (total_s==5)    {
+            this.all_digits_guessed=true;
+        }
 
     }
     
