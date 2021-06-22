@@ -280,45 +280,20 @@ class Game_Zone {
     }
     
 
-    score_calculate() {
-        let your_score=0;
-        //this.code_hacked=true;
-        if (this.code_hacked) {
-            your_score+=this.CODE_HACKED;
-        }
-        if (this.all_digits_guessed) {
-            your_score+=this.ALL_DIGITS_QUESSESED;
-        }
-
- 
-        let rest_attempts=this.MAX_ATTEMPTS-this.actual_att;
-        your_score+=rest_attempts * this.UNUSED_ATTEMPT;
-
-        for (let j=0; j<this.actual_att;j++){
-  
-            let b=this.attempts[j].black;
-            let w=this.attempts[j].white;
-                     
-            your_score+=b*this.BLACK_STICK;
-            your_score+=w*this.WHITE_STICK;
-
-        }
-
-        return your_score;
-    }
-
+   
     game_is_over() {
         this.selector_Button_disabled() ;
 
-        let game_score = this.score_calculate();
+        
         if (this.game_over) {
+            let game_score = 0;
             this.end_game_title.innerHTML = " Konec hry " ;
             this.end_game_report.innerHTML="Protokol o hře: ";
             this.end_game_report.innerHTML="</br> ";
-            this.end_game_report.innerHTML += `Skore: ${game_score} `;
             this.end_game_report.innerHTML+=`</br> `;
 
             if(this.code_hacked) {
+                game_score+= this.CODE_HACKED;
                 this.end_game_report.innerHTML+=`Prolomil jsi kód! Odměna ${this.CODE_HACKED} bodů!`;
             }
             else {
@@ -326,7 +301,8 @@ class Game_Zone {
                 this.end_game_report.innerHTML+=`</br> `;
 
                 if(this.all_digits_guessed) {
-                    this.end_game_report.innerHTML+=`Našel jsi všechny čísla. Bohužel ve špatném pořadí. Odměna ${this.ALL_DIGITS_QUESSESED} bodů!`;
+                    game_score+= this.ALL_DIGITS_QUESSESED;
+                    this.end_game_report.innerHTML+=`Našel jsi všechny čísla. Bohužel nesouhlasí pořadí. Odměna ${this.ALL_DIGITS_QUESSESED} bodů!`;
                 }
                 else {
                     this.end_game_report.innerHTML+='Bohužel se ti nepodařilo najít všechna čísla!';
@@ -335,14 +311,34 @@ class Game_Zone {
             this.end_game_report.innerHTML+=`</br> `;
             
             let att=this.actual_att;
-            this.end_game_report.innerHTML+=`Využito ${att} pokusů z ${this.MAX_ATTEMPTS} možných`;
+            this.end_game_report.innerHTML+=`Využito ${att} pokusů z ${this.MAX_ATTEMPTS} možných.`;
             this.end_game_report.innerHTML+=`</br> `;
             let att_rest = this.MAX_ATTEMPTS-att;
             this.end_game_report.innerHTML+=`Zbylé pokusy: ${att_rest} `;
             this.end_game_report.innerHTML+=`</br> `; 
             let slot_points=att_rest*this.UNUSED_ATTEMPT;
+            game_score+= slot_points;
             this.end_game_report.innerHTML+=`Za ušetřené pokusy jsi dostal: ${att_rest} * ${this.UNUSED_ATTEMPT} = ${slot_points} bodů!`;    
-            this.end_game_report.innerHTML+=`</br> `;             
+            this.end_game_report.innerHTML+=`</br> `;          
+
+            let b=0;
+            let w=0;   
+            for (let j=0; j<this.actual_att;j++){
+                b+=this.attempts[j].black;
+                w+=this.attempts[j].white;    
+            }
+
+            let black_stick_points=b*this.BLACK_STICK;
+            let white_stick_points=w*this.WHITE_STICK;
+            game_score+=black_stick_points;
+            game_score+=white_stick_points;
+
+            this.end_game_report.innerHTML+=`Za ${b} černých kolíčků jsi získal ${black_stick_points} bodů!`;    
+            this.end_game_report.innerHTML+=`</br> `; 
+            this.end_game_report.innerHTML+=`Za ${w} bílých kolíčků jsi získal ${white_stick_points} bodů!`;    
+            this.end_game_report.innerHTML+=`</br> `;  
+            this.end_game_report.innerHTML+=`------------------------------------------------------------</br> `;       
+            this.end_game_report.innerHTML+=`Celkem jsi získal ${game_score} bodů.`; 
         }
 
         else {
