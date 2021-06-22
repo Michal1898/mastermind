@@ -12,6 +12,14 @@ class Game_Zone {
     constructor(jazyk = "cs-CZ") {
         this.MAX_ATTEMPTS = 10;
         this.DIGITS_NO = 5;
+        // --- Bonus point for Score ----
+        this.CODE_HACKED=1000;
+        this.ALL_DIGITS_QUESSESED=250;
+        this.UNUSED_ATTEMPT=100;
+        this.BLACK_STICK=2;
+        this.WHITE_STICK=1;
+        //------------------------------
+
         this.charset="utf-8"
         this.init_new_game();
 
@@ -270,12 +278,39 @@ class Game_Zone {
 
     }
     
+
+    score_calculate() {
+        let your_score=0;
+        //this.code_hacked=true;
+        if (this.code_hacked) {
+            your_score+=this.CODE_HACKED;
+        }
+        if (this.all_digits_guessed) {
+            your_score+=this.ALL_DIGITS_QUESSESED;
+        }
+
+        /*
+        let rest_attempts=this.MAX_ATTEMPTS-1-this.actual_att;
+        your_score+=rest_attempts * this.UNUSED_ATTEMPT;
+
+        for (let j=0; j<=this.actual_att;j++){
+            let b=this.attempts[j].black_s;
+            let w=this.attempts[j].white_s;
+            your_score+=b * this.BLACK_STICK;
+            your_score+=w * this.WHITE_STICK;
+        }
+        */
+        return your_score;
+    }
+
     game_is_over() {
         this.selector_Button_disabled() ;
+
+        let game_score = this.score_calculate();
         if (this.game_over) {
             this.end_game_title.innerHTML = " Konec hry " ;
-
-            this.end_game_report.innerHTML = "Protokol "
+            this.end_game_report.innerHTML="";
+            this.end_game_report.innerHTML = `Skore: ${game_score} `;
         }
         else {
             this.end_game_title.innerHTML = "" ;
